@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState, useMemo } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import TournamentCarousel from "./components/TournamentCarousel";
 import LogoRPS32 from "./components/LogoRPS32";
@@ -30,56 +30,54 @@ export default function App() {
   );
 
   return (
-    <Router>
-      <Routes>
-        {/* Landing Page */}
-        <Route path="/" element={<Landing />} />
+    <Routes>
+      {/* Landing Page */}
+      <Route path="/" element={<Landing />} />
 
-        {/* Tournament Select */}
-        <Route
-          path="/play"
-          element={
-            <>
-              <TournamentCarousel
-                tiers={TIERS}
-                counts={counts}
-                runningTierId={runningTierId}
-                onJoin={(tierId) => setSelectedTierId(tierId)}
-              />
-              <LogoRPS32 />
-            </>
-          }
-        />
+      {/* Tournament Select */}
+      <Route
+        path="/play"
+        element={
+          <>
+            <TournamentCarousel
+              tiers={TIERS}
+              counts={counts}
+              runningTierId={runningTierId}
+              onJoin={(tierId) => setSelectedTierId(tierId)}
+            />
+            <LogoRPS32 />
+          </>
+        }
+      />
 
-        {/* Match Pass */}
-        <Route path="/match-pass" element={<MatchPassSelect />} />
-        <Route path="/checkout/:tierId" element={<MatchPassPage />} />
+      {/* Match Pass */}
+      <Route path="/match-pass" element={<MatchPassSelect />} />
+      <Route path="/checkout/:tierId" element={<MatchPassPage />} />
 
-        {/* Arena / Game */}
-        <Route path="/match-arena" element={<MatchArena />} />
-        <Route path="/ready" element={<MatchReady />} />
+      {/* Arena / Game */}
+      <Route path="/match-arena" element={<MatchArena />} />
+      <Route path="/ready" element={<MatchReady />} />
 
-        {/* Profile + Player Home */}
-        <Route path="/home" element={<PlayerHome />} />
-        <Route path="/player-home" element={<PlayerHome />} />
-        <Route path="/profile" element={<ProfilePage />} />
+      {/* Profile + Player Home */}
+      <Route path="/home" element={<PlayerHome />} />
+      <Route path="/player-home" element={<PlayerHome />} />
+      <Route path="/profile" element={<ProfilePage />} />
 
-        {/* Account */}
-        <Route path="/auth" element={<AuthPanel />} />
-        <Route path="/login" element={<AuthPage />} />
+      {/* Account */}
+      <Route path="/auth" element={<AuthPanel />} />
+      <Route path="/login" element={<AuthPage />} />
 
-        {/* Cashout */}
-        <Route path="/cashout" element={<CashoutPage />} />
+      {/* Cashout */}
+      <Route path="/cashout" element={<CashoutPage />} />
 
-        {/* How to play */}
-        <Route path="/how-to-play" element={<HowToPlay />} />
+      {/* How to play */}
+      <Route path="/how-to-play" element={<HowToPlay />} />
 
-        {/* ⭐ Dev-only route to jump straight into Arena */}
-        <Route path="/dev-arena" element={<Rps32Arena />} />
+      {/* Dev Arena */}
+      <Route path="/dev-arena" element={<Rps32Arena />} />
 
-        {/* If you ever need the fake-create pass page */}
-        <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
-      </Routes>
-    </Router>
+      {/* Fake match pass */}
+      <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
+    </Routes>
   );
 }
