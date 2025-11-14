@@ -19,9 +19,8 @@ import HowToPlay from "./components/HowToPlay";
 import Rps32Arena from "./components/Rps32Arena";
 
 export default function App() {
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [counts, setCounts] = useState({ rookie: 12, pro: 18, elite: 27 });
-  const [runningTierId, setRunningTierId] = useState(null);
+  const [counts] = useState({ rookie: 12, pro: 18, elite: 27 });
+  const [runningTierId] = useState(null);
   const [selectedTierId, setSelectedTierId] = useState("rookie");
 
   const selectedTier = useMemo(
@@ -58,19 +57,19 @@ export default function App() {
       <Route path="/match-arena" element={<MatchArena />} />
       <Route path="/ready" element={<MatchReady />} />
 
-      {/* Profile + Player Home */}
+      {/* Player Home + Profile */}
       <Route path="/home" element={<PlayerHome />} />
       <Route path="/player-home" element={<PlayerHome />} />
       <Route path="/profile" element={<ProfilePage />} />
 
-      {/* Account */}
+      {/* Auth */}
       <Route path="/auth" element={<AuthPanel />} />
       <Route path="/login" element={<AuthPage />} />
 
       {/* Cashout */}
       <Route path="/cashout" element={<CashoutPage />} />
 
-      {/* How to play */}
+      {/* How to Play */}
       <Route path="/how-to-play" element={<HowToPlay />} />
 
       {/* Dev Arena */}
