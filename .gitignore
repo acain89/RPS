@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+
+# Env
+.env
+.env.local
+.env.production
+backend/server/.env
+backend/server/.env.local
+
+# Ignore server secret keys
+backend/server/firebasekey.json
+firebasekey.json
+
+# Logs
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,6 @@
+services:
+  - type: static
+    name: rps64-frontend
+    rootDir: .
+    buildCommand: "npm install && npm run build"
+    publishPath: "dist"

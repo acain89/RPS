@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- square neon frame -->
+  <rect x="8" y="8" width="240" height="240" rx="18" stroke="#00ffd5" stroke-width="6" fill="none" filter="url(#glow)"/>
+  <!-- rock (blue block) -->
+  <rect x="44" y="96" width="72" height="72" rx="8" fill="#00aaff" opacity="0.9" filter="url(#glow)"/>
+  <!-- paper (red long) -->
+  <rect x="96" y="44" width="116" height="36" rx="8" fill="#ff4d4d" opacity="0.9" filter="url(#glow)"/>
+  <!-- scissors (yellow spike) -->
+  <path d="M140 212 L208 196 L172 148 Z" fill="#ffd54d" opacity="0.95" filter="url(#glow)"/>
+</svg>

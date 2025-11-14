@@ -1,0 +1,38 @@
+.terms-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.terms-card {
+  width: min(600px, 92vw);
+  background: rgba(0,255,213,0.06);
+  border: 2px solid rgba(0,255,213,0.35);
+  border-radius: 10px;
+  padding: 18px;
+  color: #eafffb;
+  box-shadow: 0 0 24px rgba(0,255,213,0.25);
+}
+
+.terms-content {
+  max-height: 70vh;
+  overflow-y: auto;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.terms-close {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,255,213,0.2);
+  border: 1px solid rgba(0,255,213,0.45);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
