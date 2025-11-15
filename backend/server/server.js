@@ -80,7 +80,25 @@ const mem = {
   matchPasses: new Map(),     // uid -> { userId, tier, matchesTotal, ... }
   queue: new Map(),           // uid -> { uid, paid, joinedAt, name? }
   stripeAccounts: new Map(),  // uid -> { uid, accountId, createdAt }
+  weeklyStreaks: new Map(),   // key = `${weekKey}:${userId}` -> { userId, username, bestStreak, weekKey, updatedAt }
 };
+
+// Weekly streaks are tracked per "week ending Sunday 8:00pm"
+function currentWeekKey() {
+  const now = new Date();
+  const d = new Date(now);
+
+  // 0 = Sunday, 1 = Monday, ...
+  const day = d.getDay();
+  // Move back to Sunday of this week
+  d.setDate(d.getDate() - day);
+  d.setHours(20, 0, 0, 0); // 8:00 p.m. local
+
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const dayNum = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${dayNum}-20:00`;
+}
 
 // Minimal Firestore-like shim
 const db = {
@@ -383,6 +401,62 @@ app.post("/update-match-pass", express.json(), (req, res) => {
   mem.matchPasses.set(userId, updated);
   return res.json(updated);
 });
+
+/* ============================================================
+   LONGEST STREAK WEEKLY (FAKE BACKEND)
+============================================================ */
+
+// POST /lsw/report
+// Body: { userId, username, streak }
+app.post("/lsw/report", express.json(), (req, res) => {
+  const { userId, username, streak } = req.body || {};
+
+  if (!userId || !username || typeof streak !== "number") {
+    return res
+      .status(400)
+      .json({ error: "userId, username, and numeric streak are required" });
+  }
+
+  const weekKey = currentWeekKey();
+  const key = `${weekKey}:${userId}`;
+  const existing = mem.weeklyStreaks.get(key);
+
+  if (!existing || streak > existing.bestStreak) {
+    mem.weeklyStreaks.set(key, {
+      userId,
+      username,
+      bestStreak: streak,
+      weekKey,
+      updatedAt: Date.now(),
+    });
+  }
+
+  return res.json({ ok: true });
+});
+
+// GET /lsw/leaderboard
+// Returns top 5 players for the current week
+app.get("/lsw/leaderboard", (_req, res) => {
+  const weekKey = currentWeekKey();
+  const all = Array.from(mem.weeklyStreaks.values()).filter(
+    (row) => row.weekKey === weekKey
+  );
+
+  all.sort((a, b) => {
+    if (b.bestStreak !== a.bestStreak) {
+      return b.bestStreak - a.bestStreak;
+    }
+    return a.updatedAt - b.updatedAt; // earlier wins tie-break
+  });
+
+  const top5 = all.slice(0, 5).map((row) => ({
+    username: row.username,
+    streak: row.bestStreak,
+  }));
+
+  return res.json({ weekKey, top5 });
+});
+
 
 
 app.listen(PORT, () => {
