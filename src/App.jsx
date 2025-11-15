@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState, useMemo } from "react";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import TournamentCarousel from "./components/TournamentCarousel";
 import LogoRPS32 from "./components/LogoRPS32";
@@ -16,9 +16,7 @@ import CashoutPage from "./components/CashoutPage";
 import ProfilePage from "./components/ProfilePage";
 import MatchReady from "./components/MatchReady";
 import HowToPlay from "./components/HowToPlay";
-import Rps32Arena from "./components/Rps32Arena";
 import DevArena from "./components/DevArena.jsx";
-
 
 export default function App() {
   const [counts] = useState({ rookie: 12, pro: 18, elite: 27 });
@@ -31,52 +29,56 @@ export default function App() {
   );
 
   return (
-    <Routes>
-      {/* Landing Page */}
-      <Route path="/" element={<Landing />} />
+    <BrowserRouter>
+      <Routes>
+        {/* Landing */}
+        <Route path="/" element={<Landing />} />
 
-      {/* Tournament Select */}
-      <Route
-        path="/play"
-        element={
-          <>
-            <TournamentCarousel
-              tiers={TIERS}
-              counts={counts}
-              runningTierId={runningTierId}
-              onJoin={(tierId) => setSelectedTierId(tierId)}
-            />
-            <LogoRPS32 />
-          </>
-        }
-      />
+        {/* Tournament Select */}
+        <Route
+          path="/play"
+          element={
+            <>
+              <TournamentCarousel
+                tiers={TIERS}
+                counts={counts}
+                runningTierId={runningTierId}
+                onJoin={(tierId) => setSelectedTierId(tierId)}
+              />
+              <LogoRPS32 />
+            </>
+          }
+        />
 
-      {/* Match Pass */}
-      <Route path="/match-pass" element={<MatchPassSelect />} />
-      <Route path="/checkout/:tierId" element={<MatchPassPage />} />
+        {/* Match Pass */}
+        <Route path="/match-pass" element={<MatchPassSelect />} />
+        <Route path="/checkout/:tierId" element={<MatchPassPage />} />
 
-      {/* Arena / Game */}
-      <Route path="/match-arena" element={<MatchArena />} />
-      <Route path="/ready" element={<MatchReady />} />
+        {/* Arena / Game */}
+        <Route path="/match-arena" element={<MatchArena />} />
+        <Route path="/ready" element={<MatchReady />} />
 
-      {/* Player Home + Profile */}
-      <Route path="/home" element={<PlayerHome />} />
-      <Route path="/player-home" element={<PlayerHome />} />
-      <Route path="/profile" element={<ProfilePage />} />
+        {/* Player */}
+        <Route path="/home" element={<PlayerHome />} />
+        <Route path="/player-home" element={<PlayerHome />} />
+        <Route path="/profile" element={<ProfilePage />} />
 
-      {/* Auth */}
-      <Route path="/auth" element={<AuthPanel />} />
-      <Route path="/login" element={<AuthPage />} />
+        {/* Auth */}
+        <Route path="/auth" element={<AuthPanel />} />
+        <Route path="/login" element={<AuthPage />} />
 
-      {/* Cashout */}
-      <Route path="/cashout" element={<CashoutPage />} />
+        {/* Cashout */}
+        <Route path="/cashout" element={<CashoutPage />} />
 
-      {/* How to Play */}
-      <Route path="/how-to-play" element={<HowToPlay />} />
+        {/* How to Play */}
+        <Route path="/how-to-play" element={<HowToPlay />} />
 
-      {/* Fake match pass */}
-      <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
-      <Route path="/dev-arena" element={<DevArena />} />
-    </Routes>
+        {/* Fake pass debug */}
+        <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
+
+        {/* NEW Dev Arena */}
+        <Route path="/dev-arena" element={<DevArena />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
