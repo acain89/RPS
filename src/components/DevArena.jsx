@@ -1,4 +1,4 @@
-// src/pages/DevArena.jsx
+// src/components/DevArena.jsx
 import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
 
@@ -17,6 +17,19 @@ function getNextSundayAt20() {
   return target;
 }
 
+function computeTimeLeft(target) {
+  const now = new Date();
+  let diff = target - now;
+  if (diff < 0) diff = 0;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  return { days, hours, minutes, seconds };
+}
+
 function useCountdown() {
   const [target] = useState(getNextSundayAt20);
   const [timeLeft, setTimeLeft] = useState(() => computeTimeLeft(target));
@@ -31,48 +44,8 @@ function useCountdown() {
   return timeLeft;
 }
 
-useEffect(() => {
-  let cancelled = false;
-
-  async function loadLeaderboard() {
-    try {
-      const data = await api("/lsw/leaderboard");
-      if (cancelled) return;
-
-      if (data && Array.isArray(data.top5) && data.top5.length > 0) {
-        setLeaderboard(data.top5);
-      } else {
-        console.log("Leaderboard empty, using defaults");
-      }
-    } catch (err) {
-      console.error("Failed to load LSW leaderboard:", err);
-      // fall back to defaults
-    } finally {
-      if (!cancelled) {
-        setLoadingLb(false);
-      }
-    }
-  }
-
-  loadLeaderboard();
-  return () => {
-    cancelled = true;
-  };
-}, []);
-
-function computeTimeLeft(target) {
-  const now = new Date();
-  let diff = target - now;
-  if (diff < 0) diff = 0;
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  return { days, hours, minutes, seconds };
-}
-
+// You can keep this if you want a separate name, but we’ll actually
+// use defaultLeaderboard for state.
 const sampleLeaderboard = [
   { username: "NeonNinja", streak: 18 },
   { username: "RPSKing", streak: 15 },
@@ -88,7 +61,6 @@ const defaultLeaderboard = [
   { username: "ScissorQueen", streak: 11 },
   { username: "VaultCrusher", streak: 10 },
 ];
-
 
 export default function DevArena() {
   // Fake player data – later we can wire this to real backend
@@ -113,6 +85,36 @@ export default function DevArena() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [matchInfo, setMatchInfo] = useState(null);
   const countdown = useCountdown();
+
+  // Load live leaderboard from backend
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadLeaderboard() {
+      try {
+        const data = await api("/lsw/leaderboard");
+        if (cancelled) return;
+
+        if (data && Array.isArray(data.top5) && data.top5.length > 0) {
+          setLeaderboard(data.top5);
+        } else {
+          console.log("Leaderboard empty, using defaults");
+        }
+      } catch (err) {
+        console.error("Failed to load LSW leaderboard:", err);
+        // fall back to defaults
+      } finally {
+        if (!cancelled) {
+          setLoadingLb(false);
+        }
+      }
+    }
+
+    loadLeaderboard();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const winRate =
     player.totalGamesPlayed > 0
@@ -183,12 +185,16 @@ export default function DevArena() {
           <div className="dev-profile-grid">
             <div className="dev-profile-card">
               <h4>Vault</h4>
-              <div className="dev-vault-amount">${player.vaultBalance.toFixed(2)}</div>
+              <div className="dev-vault-amount">
+                ${player.vaultBalance.toFixed(2)}
+              </div>
               <div className="dev-vault-sub">Total winnings available</div>
 
               <div className="dev-pass-buttons">
                 <button
-                  className={`dev-pass-btn ${canUseRookie ? "active" : "locked"}`}
+                  className={`dev-pass-btn ${
+                    canUseRookie ? "active" : "locked"
+                  }`}
                   disabled={!canUseRookie}
                 >
                   Rookie Pass
@@ -202,7 +208,9 @@ export default function DevArena() {
                   <span className="dev-pass-sub">Unlocks at $15</span>
                 </button>
                 <button
-                  className={`dev-pass-btn ${canUseElite ? "active" : "locked"}`}
+                  className={`dev-pass-btn ${
+                    canUseElite ? "active" : "locked"
+                  }`}
                   disabled={!canUseElite}
                 >
                   Elite Pass
@@ -308,6 +316,11 @@ export default function DevArena() {
           {/* Leaderboard */}
           <div className="dev-card dev-leaderboard">
             <h3>Live Longest Streak Tracker (Top 5)</h3>
+
+            {loadingLb && (
+              <div className="dev-leader-sub">Loading live leaderboard…</div>
+            )}
+
             <ul className="dev-leader-list">
               {leaderboard.map((row, idx) => (
                 <li key={row.username} className="dev-leader-row">
@@ -362,8 +375,8 @@ export default function DevArena() {
             <div className="dev-extra-notes">
               • Each game you win pushes your streak higher.  
               • Weekly leader wins the Longest Streak Reward.  
-              • Use winnings in your Vault to re-enter brackets without paying the
-              entry fee again.
+              • Use winnings in your Vault to re-enter brackets without paying
+              the entry fee again.
             </div>
           </div>
         </section>
@@ -405,11 +418,6 @@ export default function DevArena() {
     </div>
   );
 }
-
-{loadingLb && (
-  <div className="dev-leader-sub">Loading live leaderboard…</div>
-)}
-
 
 function PlayTile({ tierId, name, entry, requirement, unlocked, onPlay }) {
   return (
