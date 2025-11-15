@@ -45,9 +45,9 @@ app.use(express.json());
 // ✅ Safe CORS — allows localhost + your production domain
 app.use(cors({
   origin: [
-    FRONTEND,                         // your deployed frontend
-    "http://localhost:5173",          // local Vite dev
-    /\.vercel\.app$/,                 // any vercel.app subdomain
+    "https://rps-frontend-74cb.onrender.com",  // your real frontend
+    "http://localhost:5173",                   // local dev
+    /\.vercel\.app$/,                          // optional vercel support
   ],
   credentials: true,
 }));
