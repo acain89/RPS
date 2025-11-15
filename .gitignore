@@ -2,14 +2,16 @@ node_modules/
 dist/
 build/
 
-# Env
-.env.local
+# Env (do NOT commit ANY env files)
+.env
 .env.*
-!*.env.production
+!.env.example
+
+# Backend env
 backend/server/.env
 backend/server/.env.local
 
-# Ignore server secret keys
+# Server secret keys
 backend/server/firebasekey.json
 firebasekey.json
 

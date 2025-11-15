@@ -1,4 +1,4 @@
-console.log("API KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
+// src/main.jsx
 
 import React from "react";
 import ReactDOM from "react-dom/client";
