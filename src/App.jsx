@@ -74,9 +74,6 @@ export default function App() {
       {/* How to Play */}
       <Route path="/how-to-play" element={<HowToPlay />} />
 
-      {/* Dev Arena */}
-      <Route path="/dev-arena" element={<Rps32Arena />} />
-
       {/* Fake match pass */}
       <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
       <Route path="/dev-arena" element={<DevArena />} />
