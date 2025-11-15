@@ -2,7 +2,6 @@
 import React, { useState, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import TournamentCarousel from "./components/TournamentCarousel";
 import LogoRPS32 from "./components/LogoRPS32";
 import MatchPassSelect from "./components/MatchPassSelect";
 import MatchArena from "./components/MatchArena";
@@ -34,18 +33,13 @@ export default function App() {
         {/* Landing */}
         <Route path="/" element={<Landing />} />
 
-        {/* Tournament Select */}
+        {/* Play → Logo + DevArena */}
         <Route
           path="/play"
           element={
             <>
-              <TournamentCarousel
-                tiers={TIERS}
-                counts={counts}
-                runningTierId={runningTierId}
-                onJoin={(tierId) => setSelectedTierId(tierId)}
-              />
               <LogoRPS32 />
+              <DevArena />
             </>
           }
         />
@@ -70,13 +64,13 @@ export default function App() {
         {/* Cashout */}
         <Route path="/cashout" element={<CashoutPage />} />
 
-        {/* How to Play */}
+        {/* Guide */}
         <Route path="/how-to-play" element={<HowToPlay />} />
 
         {/* Fake pass debug */}
         <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
 
-        {/* NEW Dev Arena */}
+        {/* Direct Dev Arena */}
         <Route path="/dev-arena" element={<DevArena />} />
       </Routes>
     </BrowserRouter>

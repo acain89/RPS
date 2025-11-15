@@ -1,22 +1,24 @@
-process.env.NODE_ENV = "production";
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+
   resolve: {
-    dedupe: ["react", "react-dom"]
+    dedupe: ["react", "react-dom"],   // helps avoid duplicate React copies
   },
+
   optimizeDeps: {
-    include: ["react", "react-dom"],
-    exclude: ["@swc/core"],
-    force: true,
+    include: ["react-router", "react-router-dom"],
+    exclude: ["@emotion/is-prop-valid"]  // stops require() emission
   },
+
   build: {
     commonjsOptions: {
-      include: [/react/, /react-dom/],
-      transformMixedEsModules: true,
+      transformMixedEsModules: true
+    },
+    rollupOptions: {
+      external: ["@emotion/is-prop-valid"]
     }
   }
 });
