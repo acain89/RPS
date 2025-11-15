@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "production";
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
