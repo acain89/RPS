@@ -17,6 +17,8 @@ import ProfilePage from "./components/ProfilePage";
 import MatchReady from "./components/MatchReady";
 import HowToPlay from "./components/HowToPlay";
 import Rps32Arena from "./components/Rps32Arena";
+import DevArena from "./components/DevArena.jsx";
+
 
 export default function App() {
   const [counts] = useState({ rookie: 12, pro: 18, elite: 27 });
@@ -77,6 +79,7 @@ export default function App() {
 
       {/* Fake match pass */}
       <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
+      <Route path="/dev-arena" element={<DevArena />} />
     </Routes>
   );
 }
