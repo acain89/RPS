@@ -1,37 +1,21 @@
 {
   "name": "rps64-frontend",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^4.0.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
     "firebase": "^12.5.0",
-    "firebase-admin": "^13.5.0",
     "framer-motion": "^12.23.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^7.9.5",
-    "stripe": "^19.2.0",
+    "react-router-dom": "^7.9.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
     "vite": "^7.1.12"
-  },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "eslint.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acain89/rps64-clean.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/acain89/rps64-clean/issues"
-  },
-  "homepage": "https://github.com/acain89/rps64-clean#readme"
+  }
 }

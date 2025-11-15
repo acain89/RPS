@@ -1,3 +1,5 @@
+console.log("API KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";

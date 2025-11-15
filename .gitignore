@@ -5,7 +5,6 @@ build/
 # Env
 .env
 .env.local
-.env.production
 backend/server/.env
 backend/server/.env.local
 
