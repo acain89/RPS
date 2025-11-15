@@ -1,5 +1,6 @@
 // src/pages/DevArena.jsx
 import React, { useEffect, useState } from "react";
+import { api } from "../services/api";
 
 function getNextSundayAt20() {
   const now = new Date();
@@ -30,6 +31,35 @@ function useCountdown() {
   return timeLeft;
 }
 
+useEffect(() => {
+  let cancelled = false;
+
+  async function loadLeaderboard() {
+    try {
+      const data = await api("/lsw/leaderboard");
+      if (cancelled) return;
+
+      if (data && Array.isArray(data.top5) && data.top5.length > 0) {
+        setLeaderboard(data.top5);
+      } else {
+        console.log("Leaderboard empty, using defaults");
+      }
+    } catch (err) {
+      console.error("Failed to load LSW leaderboard:", err);
+      // fall back to defaults
+    } finally {
+      if (!cancelled) {
+        setLoadingLb(false);
+      }
+    }
+  }
+
+  loadLeaderboard();
+  return () => {
+    cancelled = true;
+  };
+}, []);
+
 function computeTimeLeft(target) {
   const now = new Date();
   let diff = target - now;
@@ -51,6 +81,15 @@ const sampleLeaderboard = [
   { username: "VaultCrusher", streak: 10 },
 ];
 
+const defaultLeaderboard = [
+  { username: "NeonNinja", streak: 18 },
+  { username: "RPSKing", streak: 15 },
+  { username: "PaperTiger", streak: 13 },
+  { username: "ScissorQueen", streak: 11 },
+  { username: "VaultCrusher", streak: 10 },
+];
+
+
 export default function DevArena() {
   // Fake player data – later we can wire this to real backend
   const [player, setPlayer] = useState({
@@ -69,6 +108,8 @@ export default function DevArena() {
     totalLosses: 62,
   });
 
+  const [leaderboard, setLeaderboard] = useState(defaultLeaderboard);
+  const [loadingLb, setLoadingLb] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
   const [matchInfo, setMatchInfo] = useState(null);
   const countdown = useCountdown();
@@ -268,7 +309,7 @@ export default function DevArena() {
           <div className="dev-card dev-leaderboard">
             <h3>Live Longest Streak Tracker (Top 5)</h3>
             <ul className="dev-leader-list">
-              {sampleLeaderboard.map((row, idx) => (
+              {leaderboard.map((row, idx) => (
                 <li key={row.username} className="dev-leader-row">
                   <span className="dev-leader-rank">#{idx + 1}</span>
                   <span className="dev-leader-name">{row.username}</span>
@@ -364,6 +405,11 @@ export default function DevArena() {
     </div>
   );
 }
+
+{loadingLb && (
+  <div className="dev-leader-sub">Loading live leaderboard…</div>
+)}
+
 
 function PlayTile({ tierId, name, entry, requirement, unlocked, onPlay }) {
   return (
