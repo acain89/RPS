@@ -1,9 +1,12 @@
 // src/services/api.js
 
+// Always read from VITE_API_BASE
+const BASE = import.meta.env.VITE_API_BASE;
+
 export async function api(path, options = {}) {
   const token = await window.auth?.currentUser?.getIdToken?.();
-  
-  const res = await fetch(`${import.meta.env.VITE_API_URL}${path}`, {
+
+  const res = await fetch(`${BASE}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +19,7 @@ export async function api(path, options = {}) {
   try {
     data = await res.json();
   } catch {
-    // ignore non-json responses (500 pages, etc)
+    // Non-JSON response — ignore
   }
 
   if (!res.ok) {
