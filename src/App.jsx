@@ -3,7 +3,6 @@ import React, { useState, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LogoRPS32 from "./components/LogoRPS32";
-import MatchPassSelect from "./components/MatchPassSelect";
 import MatchArena from "./components/MatchArena";
 import AuthPanel from "./components/AuthPanel";
 import Landing from "./components/Landing";
@@ -16,6 +15,10 @@ import ProfilePage from "./components/ProfilePage";
 import MatchReady from "./components/MatchReady";
 import HowToPlay from "./components/HowToPlay";
 import DevArena from "./components/DevArena.jsx";
+import PurchaseSuccess from "./components/PurchaseSuccess";
+import PurchaseCancelled from "./components/PurchaseCancelled";
+
+console.log("ENV CHECK:", import.meta.env);
 
 export default function App() {
   const [counts] = useState({ rookie: 12, pro: 18, elite: 27 });
@@ -45,7 +48,6 @@ export default function App() {
         />
 
         {/* Match Pass */}
-        <Route path="/match-pass" element={<MatchPassSelect />} />
         <Route path="/checkout/:tierId" element={<MatchPassPage />} />
 
         {/* Arena / Game */}
@@ -58,7 +60,7 @@ export default function App() {
         <Route path="/profile" element={<ProfilePage />} />
 
         {/* Auth */}
-        <Route path="/auth" element={<AuthPanel />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/login" element={<AuthPage />} />
 
         {/* Cashout */}
@@ -67,11 +69,15 @@ export default function App() {
         {/* Guide */}
         <Route path="/how-to-play" element={<HowToPlay />} />
 
-        {/* Fake pass debug */}
+        {/* Debug */}
         <Route path="/fake-create-match-pass" element={<MatchPassPage />} />
 
-        {/* Direct Dev Arena */}
+        {/* Dev Arena */}
         <Route path="/dev-arena" element={<DevArena />} />
+
+        {/* Stripe Redirect Pages */}
+        <Route path="/purchase-success" element={<PurchaseSuccess />} />
+        <Route path="/purchase-cancelled" element={<PurchaseCancelled />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,173 @@
+.howto-page {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #091921, #0a2a33);
+  color: #00ffe0;
+  font-family: "Rajdhani", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.howto-card {
+  width: 100%;
+  max-width: 720px;
+  background: rgba(0, 16, 16, 0.96);
+  border-radius: 14px;
+  border: 1px solid rgba(0, 255, 213, 0.7);
+  box-shadow:
+    0 0 24px rgba(0, 255, 213, 0.5),
+    0 0 80px rgba(0, 255, 213, 0.18);
+  padding: 24px 22px 20px;
+}
+
+.howto-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.howto-header h1 {
+  font-size: 30px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.howto-header p {
+  margin: 0;
+  opacity: 0.85;
+  font-size: 14px;
+}
+
+.howto-divider {
+  height: 2px;
+  margin: 16px auto 10px;
+  width: 82%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 213, 0),
+    rgba(0, 255, 213, 0.85),
+    rgba(0, 255, 213, 0)
+  );
+  box-shadow:
+    0 0 10px rgba(0, 255, 213, 0.6),
+    0 0 20px rgba(0, 255, 213, 0.3);
+}
+
+.howto-section {
+  margin-bottom: 12px;
+}
+
+.howto-section-title {
+  margin: 0 0 4px;
+}
+
+.howto-tag {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 213, 0.6);
+  background: rgba(0, 25, 25, 0.9);
+}
+
+.howto-text {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.howto-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.howto-list li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 4px;
+  opacity: 0.94;
+}
+
+.howto-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  color: #00ffe0;
+  opacity: 0.9;
+}
+
+.accent {
+  color: #ffdd78;
+}
+
+.emoji {
+  font-size: 16px;
+  margin: 0 1px;
+}
+
+.howto-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.howto-btn {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.14s ease-out, box-shadow 0.14s ease-out,
+    background 0.14s ease-out, color 0.14s ease-out, border-color 0.14s ease-out;
+}
+
+.howto-btn.primary {
+  background: #00ffe0;
+  color: #002824;
+  border: 1px solid #00ffe0;
+  box-shadow: 0 0 18px rgba(0, 255, 213, 0.6);
+}
+
+.howto-btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 24px rgba(0, 255, 213, 0.85);
+}
+
+.howto-btn.ghost {
+  background: transparent;
+  color: #00ffe0;
+  border: 1px solid rgba(0, 255, 213, 0.7);
+}
+
+.howto-btn.ghost:hover {
+  transform: translateY(-1px);
+  border-color: #00ffe0;
+  box-shadow: 0 0 14px rgba(0, 255, 213, 0.5);
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .howto-card {
+    padding: 20px 16px 16px;
+  }
+
+  .howto-header h1 {
+    font-size: 24px;
+  }
+
+  .howto-divider {
+    width: 100%;
+  }
+}

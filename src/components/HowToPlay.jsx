@@ -1,54 +1,101 @@
+// src/components/HowToPlay.jsx
+import React from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./HowToPlay.css";
 
 export default function HowToPlay() {
   const navigate = useNavigate();
-  const card = { initial:{y:20,opacity:0}, animate:{y:0,opacity:1} };
 
   return (
-    <div style={{
-      minHeight:"100vh", background:"linear-gradient(145deg,#091921,#0a2a33)",
-      color:"#00FFE0", fontFamily:"'Rajdhani',sans-serif", padding:"64px 24px",
-      display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center"
-    }}>
-      <h1 style={{fontSize:36, marginBottom:8}}>How to Play</h1>
-      <p style={{opacity:.85, marginBottom:32}}>Fast. Fair. Skill-based. Six matches per pass.</p>
+    <div className="howto-page">
+      <motion.div
+        className="howto-card"
+        initial={{ opacity: 0, y: 18, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      >
+        <div className="howto-header">
+          <h1>How to Play</h1>
+          <p>Fast, fair, skill-based RPS with cash prizes.</p>
+        </div>
 
-      <div style={{
-        display:"grid", gap:18, width:"100%", maxWidth:960,
-        gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))"
-      }}>
-        <motion.div {...card} transition={{duration:.35, delay:.05}}
-          style={tileStyle}><h2 style={h2}>1. Choose a Match Pass</h2>
-          <p>Pick Rookie, Pro, or Elite to get 6 matches with fixed per-win payouts.</p></motion.div>
+        <div className="howto-divider" />
 
-        <motion.div {...card} transition={{duration:.35, delay:.15}}
-          style={tileStyle}><h2 style={h2}>2. Win Rounds</h2>
-          <p>Play head-to-head RPS. Each win instantly adds to your earnings.</p></motion.div>
+        {/* Objective */}
+        <section className="howto-section">
+          <h2 className="howto-section-title">
+            <span className="howto-tag">Objective</span>
+          </h2>
+          <p className="howto-text">
+            Battle an opponent for 10 <span className="accent">rounds</span> of RPS. Each round wins real money.
+          </p>
+        </section>
 
-        <motion.div {...card} transition={{duration:.35, delay:.25}}
-          style={tileStyle}><h2 style={h2}>3. Cash Out or Replay</h2>
-          <p>After 6 matches, cash out (5% fee) or buy another pass to keep going.</p></motion.div>
-      </div>
+        {/* Match Structure */}
+        <section className="howto-section">
+          <h2 className="howto-section-title">
+            <span className="howto-tag">Match Flow</span>
+          </h2>
+          <ul className="howto-list">
+            <li>
+              Each game has <span className="accent">10 rounds</span>.
+            </li>
+            <li>
+              Both players start with{" "}
+              <span className="accent">3 lives</span>.
+            </li>
+            <li>
+              Pick your move: <span className="emoji">✊</span>{" "}
+              <span className="emoji">✋</span>{" "}
+              <span className="emoji">✌️</span>.
+            </li>
+            <li>
+              Lose a clash → you lose{" "}
+              <span className="accent">1 life</span>.
+            </li>
+            <li>
+              When a player hits <span className="accent">0 lives</span>, the
+              other player wins that round.
+            </li>
+          </ul>
+        </section>
 
-      <div style={{marginTop:28, display:"flex", gap:12}}>
-        <button style={cta} onClick={()=>navigate("/match-pass")}>Next</button>
-        <button style={ghost} onClick={()=>navigate("/")}>Back</button>
-      </div>
+
+        {/* Earnings */}
+        <section className="howto-section">
+          <h2 className="howto-section-title">
+            <span className="howto-tag">Earnings</span>
+          </h2>
+          <ul className="howto-list">
+            <li>
+              CLick on Profile to choose a pass; Rookie, Pro, or Elite.
+            </li>
+            <li>
+              Win $2, $3, or $4 every round for 10 rounds.
+            </li>
+          </ul>
+        </section>
+
+        {/* Quick Tips */}
+        <section className="howto-section">
+          <h2 className="howto-section-title">
+            <span className="howto-tag">Tips</span>
+          </h2>
+          <ul className="howto-list">
+            <li>Don’t rush every pick — watch the timer and your lives.</li>
+            <li>Mix up your moves; predictable patterns are easy to punish.</li>
+            <li>Protect your last life — one mistake can flip the round.</li>
+          </ul>
+        </section>
+
+        {/* Actions */}
+        <div className="howto-actions">
+          <Link to="/dev-arena" className="howto-btn primary">
+            Jump Into Arena
+          </Link>
+                  </div>
+      </motion.div>
     </div>
   );
 }
-
-const tileStyle = {
-  background:"rgba(0,255,224,0.06)", border:"1px solid rgba(0,255,224,0.18)",
-  borderRadius:12, padding:"18px 16px", boxShadow:"0 0 22px rgba(0,255,213,0.10)"
-};
-const h2 = { fontSize:20, margin:"0 0 6px 0" };
-const cta = {
-  background:"#00FFE0", color:"#002824", border:"none", padding:"12px 22px",
-  borderRadius:10, fontWeight:700, cursor:"pointer"
-};
-const ghost = {
-  background:"transparent", color:"#00FFE0", border:"2px solid #00FFE0",
-  padding:"10px 20px", borderRadius:10, fontWeight:700, cursor:"pointer"
-};

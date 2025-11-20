@@ -14,28 +14,39 @@ export default function MatchPassSelect() {
   ];
 
   // ✅ If user already has a pass, skip to player-home
-  useEffect(() => {
-    async function loadPass() {
-      if (!auth.currentUser) {
-        setLoading(false);
+useEffect(() => {
+  async function loadPass() {
+    // If not logged in → stay here and let them log in via buy button
+    if (!auth.currentUser) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/get-match-pass`,
+        { credentials: "include" }
+      );
+      const data = await res.json();
+
+      // ✅ If user ALREADY has a usable pass → go straight to arena
+      if (data && data.matchesPlayed < data.matchesTotal) {
+        navigate("/match-arena");
         return;
       }
 
-      try {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/get-match-pass`);
-        const data = await res.json();
+      // No active pass → show this screen normally
+      setLoading(false);
 
-        if (data && data.matchesPlayed < data.matchesTotal) {
-          setTimeout(() => navigate("/player-home"), 300);
-        }
-      } catch (err) {
-        console.error("Fetch pass error:", err);
-      } finally {
-        setLoading(false);
-      }
+    } catch (err) {
+      console.error("Fetch pass error:", err);
+      setLoading(false); // still show screen
     }
-    loadPass();
-  }, [navigate]);
+  }
+
+  loadPass();
+}, [navigate]);
+
 
   // ✅ Fake buy - create a match pass and go to dashboard
   async function buy(tier) {

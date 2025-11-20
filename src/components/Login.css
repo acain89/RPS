@@ -1,0 +1,114 @@
+/* ===========================
+   Auth Page Wrapper
+   =========================== */
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(145deg,#091921,#0a2a33);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  color: #00FFE0;
+  padding: 20px;
+}
+
+/* ===========================
+   Auth Card
+   =========================== */
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(0,255,213,0.06);
+  border: 2px solid rgba(0,255,213,0.4);
+  border-radius: 14px;
+  padding: 32px 26px;
+  box-shadow: 0 0 18px rgba(0,255,213,0.22);
+  position: relative;
+  text-align: center;
+}
+
+/* Close (X) Button */
+.auth-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 22px;
+  color: #00FFE0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===========================
+   Titles
+   =========================== */
+.auth-title {
+  font-size: 28px;
+  margin-bottom: 18px;
+}
+
+/* ===========================
+   Form
+   =========================== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Inputs */
+.auth-input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(0,255,213,0.35);
+  background: transparent;
+  color: #00FFE0;
+  font-size: 16px;
+  outline: none;
+  transition: 0.25s;
+}
+
+.auth-input:focus {
+  border-color: #00FFE0;
+  box-shadow: 0 0 10px rgba(0,255,224,0.4);
+}
+
+/* Error Message */
+.auth-error {
+  color: #ff4e4e;
+  font-size: 14px;
+}
+
+/* Submit Button */
+.auth-btn {
+  background: #00FFE0;
+  color: #002824;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.auth-btn:hover {
+  background: #17ffe8;
+}
+
+/* ===========================
+   Switch Login/Register
+   =========================== */
+.auth-switch {
+  margin-top: 16px;
+  font-size: 16px;
+}
+
+.auth-switch span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth-switch span:hover {
+  color: #17ffe8;
+}

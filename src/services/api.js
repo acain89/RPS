@@ -1,31 +1,38 @@
-// src/services/api.js
+import { auth } from "./firebase";
 
-// Always read from VITE_API_BASE
-const BASE = import.meta.env.VITE_API_BASE;
+export async function api(path, opts = {}) {
+  console.log("🔥 USING services/api.js");
 
-export async function api(path, options = {}) {
-  const token = await window.auth?.currentUser?.getIdToken?.();
+  // Always use the configured API base
+  const base = import.meta.env.VITE_API_BASE;
+  console.log("[API] BASE =", base);
+  console.log("[API] Using:", base + path);
 
-  const res = await fetch(`${BASE}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Bearer ${token}` : "",
-      ...(options.headers || {})
+  let headers = {
+    "Content-Type": "application/json",
+    ...(opts.headers || {})
+  };
+
+  // 🔥 REMOVE auto-dev mode — only use dev override if you manually set it
+  const useFake = import.meta.env.VITE_USE_FAKE_BACKEND === "1";
+
+  if (useFake) {
+    console.log("🧪 FAKE MODE ENABLED");
+    headers["x-user-id"] = "dev-user";
+  } else {
+    // 🔥 PROD / REAL AUTH
+    const user = auth.currentUser;
+    if (user) {
+      const token = await user.getIdToken();
+      headers["Authorization"] = `Bearer ${token}`;
     }
+  }
+
+  const res = await fetch(base + path, {
+    method: opts.method || "GET",
+    headers,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
 
-  let data = null;
-  try {
-    data = await res.json();
-  } catch {
-    // Non-JSON response — ignore
-  }
-
-  if (!res.ok) {
-    console.error("API ERROR", res.status, data || res.statusText);
-    throw data || new Error(`API ${res.status}: ${res.statusText}`);
-  }
-
-  return data;
+  return res.json().catch(() => ({}));
 }

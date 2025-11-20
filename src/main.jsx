@@ -5,6 +5,8 @@ window.onerror = (msg, url, line, col, error) => {
 window.onunhandledrejection = (event) => {
   console.error("🔥 UNHANDLED PROMISE:", event.reason);
 };
+console.log("ENV (FULL):", import.meta.env);
+
 
 // src/main.jsx
 import React from "react";

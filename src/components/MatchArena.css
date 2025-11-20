@@ -1,0 +1,454 @@
+/* ===============================
+   ROOT PAGE + BACKGROUND
+   =============================== */
+
+.arena-page {
+  min-height: 100vh;
+  font-family: "Rajdhani", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(145deg, #091921, #0a2a33);
+  color: #00ffe0;
+}
+
+.arena-frame {
+  position: relative;
+  width: 520px;
+  height: 600px;
+  margin: 24px auto;
+  border-radius: 0;
+  overflow: visible;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: 2px solid rgba(0, 255, 213, 0.55);
+  box-shadow:
+    0 0 26px rgba(0, 255, 213, 0.45),
+    0 0 80px rgba(0, 255, 213, 0.12) inset;
+}
+
+/* ===============================
+   DIVIDER LINE
+   =============================== */
+
+.arena-divider {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 213, 0),
+    rgba(0, 255, 213, 0.9),
+    rgba(0, 255, 213, 0)
+  );
+  box-shadow:
+    0 0 24px rgba(0, 255, 213, 0.7),
+    0 0 42px rgba(0, 255, 213, 0.35);
+}
+
+/* ===============================
+   PLAYER PANELS
+   =============================== */
+
+.player-top,
+.player-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 20;
+  overflow: visible;
+}
+
+.player-top {
+  top: 30px;
+}
+
+.player-bottom {
+  bottom: 30px;
+}
+
+/* ===============================
+   PLAYER NAME
+   =============================== */
+
+.player-name {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 213, 0.6);
+  display: inline-block;
+  background: rgba(0, 25, 25, 0.8);
+}
+
+/* ===============================
+   WINNINGS
+   =============================== */
+
+.player-winnings {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* ===============================
+   LIFE DOTS + TIMER
+   =============================== */
+
+.player-lights {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* LIFE DOTS */
+
+.life-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.life-dot.on {
+  background: rgba(255, 40, 40, 1);
+  box-shadow: 0 0 12px rgba(255, 50, 50, 0.8);
+}
+
+.life-dot.off {
+  background: rgba(120, 20, 20, 0.35);
+}
+
+/* TIMER */
+
+.timer-ring {
+  filter: drop-shadow(0 0 4px rgba(0, 255, 213, 0.5));
+}
+
+.timer-text {
+  fill: #00ffe0;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ===============================
+   MOVE BUTTONS
+   =============================== */
+
+.player-moves {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 4px 0;
+}
+
+.nes-button {
+  width: 120px;
+  height: 86px;
+  border-radius: 6px;
+  font-size: 34px;
+  font-weight: 800;
+  cursor: pointer;
+  background: #00ffe0;
+  color: #002824;
+  opacity: 0.93;
+  box-shadow: 0 0 18px rgba(0, 255, 213, 0.55);
+
+  /* ✅ Prevent layout shift when state changes */
+  box-sizing: border-box;
+  border: 1px solid transparent; /* reserve space for ghost border */
+}
+
+.nes-button-active {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+/* Ghost state should NOT change size; just visuals */
+.nes-button-ghost {
+  background: rgba(0, 255, 224, 0.10);
+  color: rgba(0, 255, 224, 0.95);
+  border: 1px solid rgba(0, 255, 224, 0.35); /* same width as base */
+  cursor: default;
+  box-shadow: 0 0 12px rgba(0, 255, 224, 0.25);
+}
+
+/* ===============================
+   SELECTION INDICATOR
+   =============================== */
+
+.player-select-indicator {
+  margin-top: 6px;
+}
+
+.player-select-dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.player-select-dot.active {
+  background: #00ffe0;
+  box-shadow: 0 0 14px rgba(0, 255, 213, 0.8);
+}
+
+.player-select-dot.inactive {
+  background: rgba(0, 255, 224, 0.18);
+}
+
+.player-select-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* ===============================
+   TIMEOUT BANNERS
+   =============================== */
+
+.player-timeout {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 80, 80, 0.7);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(40, 0, 0, 0.95);
+  color: #ff7070;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.player-top .player-timeout {
+  top: -8px;
+}
+
+.player-bottom .player-timeout {
+  bottom: -8px;
+}
+
+/* ===============================
+   "-1 LIFE"
+   =============================== */
+
+.life-pop {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff7070;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+
+/* ===============================
+   RESULT BOX (WIN/LOSE/TIE)
+   =============================== */
+
+.result-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease-out;
+  z-index: 9999;
+}
+
+.result-box.top {
+  top: -34px;
+}
+
+.result-box.bottom {
+  bottom: -34px;
+}
+
+.result-box.win {
+  background: rgba(0, 180, 60, 0.9);
+  color: #fff;
+}
+
+.result-box.lose {
+  background: rgba(200, 0, 0, 0.9);
+  color: #fff;
+}
+
+.result-box.tie {
+  background: rgba(90, 90, 90, 0.9);
+  color: #fff;
+}
+
+.result-box.show {
+  opacity: 1;
+}
+
+/* ===============================
+   INTRO OVERLAY
+   =============================== */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.intro-card {
+  padding: 22px 36px;
+  width: 80%;
+  max-width: 360px;
+  background: rgba(0, 16, 16, 0.95);
+  border: 1px solid rgba(0, 255, 213, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 0 24px rgba(0, 255, 213, 0.7);
+  text-align: center;
+}
+
+.intro-card-title {
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.intro-card-sub {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.intro-card-pot {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.intro-card-rounds {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.intro-card-goodluck {
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+/* ===============================
+   ROUND BANNER
+   =============================== */
+
+.round-banner {
+  position: absolute;
+  top: calc(50% - 16px);   /* pixel-perfect center */
+  left: 37%;
+  transform: translate(-50%, -50%);
+  padding: 10px 28px;
+  border-radius: 6px;
+  background: rgba(0, 15, 15, 0.96);
+  border: 1px solid rgba(0, 255, 213, 0.6);
+  box-shadow: 0 0 18px rgba(0, 255, 213, 0.6);
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  z-index: 4000;
+  pointer-events: none;
+}
+
+/* ===============================
+   FINAL ROUND BADGE
+   =============================== */
+
+.final-round-badge {
+  position: absolute;
+  top: 47%;
+  left: 39%;
+  transform: translateX(-50%);
+  padding: 6px 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 220, 120, 0.7);
+  background: rgba(20, 12, 0, 0.96);
+  box-shadow: 0 0 14px rgba(255, 220, 120, 0.7);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffdd78;
+}
+
+/* ===============================
+   NEXT ROUND OVERLAY
+   =============================== */
+
+.next-round-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ===============================
+   SIDE NEON RAILS
+   =============================== */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 140px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 213, 0.45) 0%,
+    rgba(0, 255, 213, 0.15) 40%,
+    rgba(0, 255, 213, 0) 80%
+  );
+  filter: blur(18px);
+}
+
+body::before {
+  left: 0;
+}
+
+body::after {
+  right: 0;
+}
+
+/* Prevent shifting when result box text differs in width */
+.result-box {
+  min-width: 140px;  /* adjust to match your longest word */
+  text-align: center;
+}
+
+.life-pop {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0;      /* stop pushing layout */
+  pointer-events: none;
+  z-index: 3000;
+}

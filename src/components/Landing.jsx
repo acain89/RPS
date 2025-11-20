@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";   // ← Added Link here
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -18,24 +18,26 @@ export default function Landing() {
         position: "relative"
       }}
     >
-      {/* Login top-right */}
-      <button
-        onClick={() => navigate("/auth")}
-        style={{
-          position: "absolute",
-          top: 20,
-          right: 24,
-          background: "transparent",
-          color: "#00FFE0",
-          border: "2px solid #00FFE0",
-          padding: "10px 22px",
-          borderRadius: "8px",
-          fontSize: "15px",
-          cursor: "pointer"
-        }}
-      >
-        Login
-      </button>
+      {/* Login + Profile (top-right) */}
+      <div style={{ position: "absolute", top: 20, right: 24, display: "flex", gap: "12px" }}>
+        
+
+        {/* Login Button */}
+        <button
+          onClick={() => navigate("/auth")}
+          style={{
+            background: "transparent",
+            color: "#00FFE0",
+            border: "2px solid #00FFE0",
+            padding: "10px 22px",
+            borderRadius: "8px",
+            fontSize: "15px",
+            cursor: "pointer"
+          }}
+        >
+          Login
+        </button>
+      </div>
 
       {/* Title */}
       <motion.h1
